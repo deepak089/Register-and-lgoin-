@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+    crossorigin="anonymous"></script>
+</head>
+<body class="bg-info">
+   <div class="container">
+       <div class="card shadow px-5 py-5 mx-5 my-5">
+           <div class="login">
+    <form name='form-login'>
+
+        <h1>SIGN IN</h1>
+
+        <label for="userName">username</label>
+        <input type="text" class="form-control" id="userName" placeholder="Username" required>
+
+        <label for="userPw">Password</label>
+        <input type="password" class="form-control" id= "userPw" placeholder="Password" required>
+        <br>
+        <div id="remember">
+            <input type="checkbox"  value="lsRememberMe" id="rememberMe"
+                   style="display: inline-block;">
+            <label>Remember me</label>
+        </div>
+
+        <input id= "login_btn"  class="btn btn-success col-lg-12" type="submit" value="Login" onclick="check()">
+
+    </form>
+</div>
+</div>
+ </div>
+  <script>
+
+    // it will redirect to profile if user is log in..
+let uname=localStorage.getItem('name')?localStorage.getItem('name'):'' ;
+       console.log(uname);
+        if(uname!='')
+        {
+          alert('Please visit profile');
+          window.location.href="profile.html";
+        }
+        // login for user if exists...
+function check(){
+
+    var name = document.getElementById('userName').value;
+    var pw = document.getElementById('userPw').value;
+    var userRemember = document.getElementById("rememberMe");
+
+    let user_records=new Array();
+    user_records=JSON.parse(localStorage.getItem("users"))?JSON.parse(localStorage.getItem("users")):[];
+    if(user_records.some((v)=>{return v.name==name && v.pw==pw}))
+    {
+    alert("Login Pass");
+    let current_user=user_records.filter((v)=>{return v.name==name && v.pw==pw})[0] ;
+    localStorage.setItem('name',current_user.name);
+    // window.location.href="profile.html";
+    window.location.href="profile.html"
+    }
+    else
+    {
+    alert('Login Fail');
+    }
+    
+}
+
+  </script>
+<!-- <script src="login.js"></script> -->
+</body>
+</html>
