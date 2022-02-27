@@ -1,39 +1,74 @@
 <html>
-    <head>
-        <title>
-            Profile 
-        </title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-      </head>
-      <body>
-      
-      <div class="container">
-        <h2>Profile</h2>
-        <button onclick="Logout();" style="float: right;">Logout</button>
-        <hr>
-        <h3>Welcome</h3>
-        <h4>Name: <script>document.write(localStorage.getItem('name'));</script></h4>
-      </div>
-      
-      </body>
-      <script>
 
-        //   it will logout for the user...
-        let name=localStorage.getItem('name')?localStorage.getItem('name'):''
-        console.log(name);
-        if(name=='')
-        {
-          alert('U need to login first');
-          window.location.href="login.html";
-        }
-        function Logout()
-        {
-          localStorage.removeItem('name');
-          window.location.href="login.html";
-        }
-  </script>
-      </html>
+<head>
+  <title>
+    Profile
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>Profile</h2>
+    <button onclick="Logout();" style="float: right;">Logout</button>
+    <hr>
+    <h3>Welcome</h3>
+    <h4>Name:
+      <script>document.write(localStorage.getItem('name'));</script>
+    </h4>
+
+    <table class="table table-striped">
+      <tr class="bg-info">
+        <th>Name</th>
+        <th>password</th>
+      </tr>
+
+      <tbody id="myTable">
+
+      </tbody>
+    </table>
+    <button class="btn-btn-success" onclick="view();">View</button>
+  </div>
+
+</body>
+<script>
+
+  //   it will logout for the user...
+  let uname = localStorage.getItem('name') ? localStorage.getItem('name') : ''
+  console.log(uname);
+  if (uname == '') {
+    alert('U need to login first');
+    window.location.href = "login.html";
+  }
+  function Logout() {
+    localStorage.removeItem('name');
+    window.location.href = "login.html";
+  }
+
+  function buildTable(data) {
+    var table = document.getElementById('myTable')
+
+    for (var i = 0; i < data.length; i++) {
+      var row = `<tr>
+							<td>${data[i].name}</td>
+              <td>${data[i].pw}</td>
+					  </tr>`
+      table.innerHTML += row;
+
+
+    }
+  }
+
+  function view() {
+    var result = JSON.parse(localStorage.getItem('users'));
+    buildTable(result);
+  }
+
+</script>
+
+</html>
